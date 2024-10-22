@@ -38,10 +38,14 @@ class Solution:
             self.level_sum(root.right, depth=depth + 1, depth_sums=depth_sums)
 
     def kthLargestLevelSum(self, root: Optional[TreeNode], k: int) -> int:
-        """O(n) time, O(n) space recursive solution."""
-        level_sums = []  # mutate this list to contain level sums
+        """O(n log n) time, O(n) space recursive solution."""
+        level_sums = []
+
+        # Mutate list to contain level sums
         self.level_sum(root=root, depth_sums=level_sums)
+        
+        # Return `k`th largest sum, if possible
         if len(level_sums) < k:
             return -1
         else:
-            return sorted(level_sums)[-k]  # return `k`th largest sum
+            return sorted(level_sums)[-k]  # O(n log n)
