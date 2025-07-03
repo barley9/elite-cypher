@@ -36,7 +36,7 @@ class Solution:
         """
         digit_str = tuple(str(i) for i in range(10))
 
-        for n in range(1, 10):  # skip 0
+        for n in range(1, 10):  # skip `0`
             yield digit_str[n]
 
         for n in itertools.count(1):
@@ -47,21 +47,27 @@ class Solution:
 
     def palindromes(self) -> str:
         """
-        Infinite generator of base-10 palindromic integers in increasing order
+        Generates base-10 palindromic integers in order of increasing
+        numerical value
         """
         gen_evn = self.palindromes_even()
         gen_odd = self.palindromes_odd()
+        
         prev_evn = next(gen_evn)
         prev_odd = next(gen_odd)
-        length = 1
+        
+        length = 1  # number of digits in palindrome
+        
         while True:
+            # Generate odd-length palindromes while number of digits is constant
             n = prev_odd
             while len(n) == length:
                 yield n
                 n = next(gen_odd)
-            prev_odd = n
+            prev_odd = n  # store next number for later
             length += 1
 
+            # Generate even-length palindromes while number of digits is constant
             n = prev_evn
             while len(n) == length:
                 yield n
@@ -72,11 +78,14 @@ class Solution:
     @staticmethod
     def is_palindrome(seq: List) -> bool:
         """Returns True if `seq` is a palindrome, False otherwise"""
-        return all(seq[i] == seq[-i - 1] for i in range(len(seq) // 2))
+        return all(
+            seq[i] == seq[-i - 1]
+            for i in range(len(seq) // 2)
+        )
 
     def to_base(self, n: int, b: int=10) -> List[str]:
         """
-        Returns the list of numerals of the base-`b` representation of the
+        Returns the list of numerals in the base-`b` representation of the
         integer `n` in increasing order of place value. If `n` is `0`, returns
         an empty list.
         """
@@ -87,7 +96,7 @@ class Solution:
         elif b == 8:
             return list(reversed(f'{n:o}'))
         elif b == 16:
-            return list(reversed(f'{n:x}'))
+            return list(reversed(f'{n:X}'))
 
         result = []
         while n:
@@ -106,17 +115,21 @@ class Solution:
         return sum(mirror_numbers)
 
 if __name__ == '__main__':
-    # odd = Solution.palindromes_odd()
-    # evn = Solution.palindromes_even()
-    # for _ in range(100):
-    #     print(next(odd))
-    # print()
-    # for _ in range(100):
-    #     print(next(evn))
+    odd = Solution.palindromes_odd()
+    evn = Solution.palindromes_even()
+    for _ in range(100):
+        print(next(odd))
+    print()
+    for _ in range(100):
+        print(next(evn))
+    print()
 
-    # g = Solution().palindromes()
-    # for _ in range(1000):
-    #     print(next(g))
+    g = Solution().palindromes()
+    for _ in range(1000):
+        print(next(g))
+    print()
 
-    S = Solution()
-    print(S.kMirror(7, 17))
+    print(Solution().to_base(255, 16))
+    print()
+
+    print(Solution().kMirror(7, 17))
