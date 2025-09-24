@@ -16,7 +16,12 @@ class Solution:
     ord0 = ord('0')
 
     def fractionToDecimal(self, numerator: int, denominator: int) -> str:
-        """O(??) time, O(??) space solution"""
+        """
+        O(??) time, O(??) space solution
+
+        (I have no idea how the length of the decimal expansion of a rational
+        number depends on its numerator and denominator)
+        """
         neg_flag = ((numerator < 0) ^ (denominator < 0)) & (numerator != 0)
         n, d = abs(numerator), abs(denominator)
         
@@ -32,8 +37,10 @@ class Solution:
             if r == 0:
                 break  # the decimal expansion terminated
             
+            # Store indices of previously encountered (quotient, remainder)
             if i > 0:
                 seen[(q, r)] = i  # do not count whole part when finding cycle
+            
             n = 10 * r
 
         # print(seen)
