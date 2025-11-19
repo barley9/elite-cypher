@@ -40,3 +40,20 @@ class Solution:
         # print(decoded)
         
         return decoded[-1] == 'a'
+
+    def isOneBitCharacter(self, bits: List[int]) -> bool:
+        """
+        O(n) time, O(1) space solution
+        
+        optimized version of above strategy
+        """
+        state = 0
+        for i in range(len(bits)):
+            if state:
+                state = 0
+            else:
+                if bits[i]:
+                    state = 1
+                elif i == len(bits) - 1:
+                    return True
+        return False
