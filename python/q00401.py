@@ -35,8 +35,8 @@ import itertools
 class Solution:
     LED_COUNT = 4 + 6
 
-    def bin_sequence_to_time(self, sequence: tuple[int]) -> str:
-        """O(len(sequence)) time, O(1) space helper function"""
+    def bin_sequence_to_time(self, sequence: List[str]) -> str:
+        """O(n) time, O(n) space helper function"""
         assert len(sequence) == self.LED_COUNT
 
         hour   = int(''.join(sequence[:4]), 2)
