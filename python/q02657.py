@@ -41,3 +41,72 @@ class Solution:
             countb.update(B[i:i + 1])
             result.append((counta & countb).total())
         return result
+
+    def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
+        """O(n^2) time, O(3*n) space solution"""
+        seta = set()
+        setb = set()
+        
+        result = []
+        for a, b in zip(A, B):
+            seta.add(a)
+            setb.add(b)
+
+            result.append(len(seta & setb))
+        
+        return result
+
+    def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
+        """O(n) time, O(3*n) space solution"""
+        seen_a = set()
+        seen_b = set()
+
+        count = 0
+        result = [0] * len(A)
+        for i, (a, b) in enumerate(zip(A, B)):
+            if a in seen_b:
+                count += 1
+                seen_b.remove(a)
+            else:
+                seen_a.add(a)
+            
+            if b in seen_a:
+                count += 1
+                seen_a.remove(b)
+            else:
+                seen_b.add(b)
+            
+            result[i] = count
+        
+        return result
+
+    def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
+        """
+        O(n) time, O(3*n) space solution
+
+        Instead of keeping track of every element of `A` and `B`, only keep
+        elements that haven't been matched up yet. Once a match is found,
+        increment `count` and remove matching elements. We are guaranteed to
+        never encounter repeated elements because `A` and `B` are permutations.
+        """
+        seen_a = set()
+        seen_b = set()
+
+        count = 0
+        result = []
+        for a, b in zip(A, B):
+            if a in seen_b:
+                count += 1
+                seen_b.remove(a)
+            else:
+                seen_a.add(a)
+            
+            if b in seen_a:
+                count += 1
+                seen_a.remove(b)
+            else:
+                seen_b.add(b)
+            
+            result.append(count)
+        
+        return result
