@@ -20,7 +20,6 @@
 /*
  * Extremely simple integer hash table implementation
  * NOT included: collision resolution, overfull resolution
- * A value of `0` indicates empty cell
  * Based on <https://benhoyt.com/writings/hash-table-in-c/>
  */
 typedef struct {
