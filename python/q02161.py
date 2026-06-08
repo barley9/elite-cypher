@@ -29,3 +29,15 @@ class Solution:
             else:
                 pcount += 1
         return left + ([pivot] * pcount) + right
+
+    def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
+        """O(2n) time, O(n) space solution"""
+        less, equal, greater = [], [], []
+        for n in nums:
+            if n < pivot:
+                less.append(n)
+            elif n > pivot:
+                greater.append(n)
+            else:
+                equal.append(n)
+        return less + equal + greater
