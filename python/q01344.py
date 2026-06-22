@@ -17,5 +17,5 @@ class Solution:
         return min(dtheta, 360 - dtheta)
 
     def angleClock(self, hour: int, minutes: int) -> float:
-        dt = (360 * (1/12 - 1) * (hour + minutes / 60)) % 360
+        dt = (330 * (hour + minutes / 60)) % 360
         return min(dt, 360 - dt)
